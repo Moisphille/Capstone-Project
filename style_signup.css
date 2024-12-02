@@ -1,0 +1,119 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background: linear-gradient(to right, #FFE4C4, #FFDEAD); /* Warna gradient latar belakang */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-container {
+    background: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.form-box {
+    margin-bottom: 20px;
+}
+
+h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #8B4513; /* Warna cokelat tua untuk judul */
+}
+
+.input-box {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #F5DEB3; /* Warna #F5DEB3 (wheat) untuk border input */
+    outline: none;
+    background: none;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
+.input-box label {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    transition: 0.3s;
+}
+
+.input-box input:focus + label,
+.input-box input:valid + label {
+    top: -10px;
+    color: #FFDEAD; /* Warna #FFDEAD (navajo white) untuk label yang difokuskan */
+    font-size: 12px;
+}
+
+.btn {
+    width: 100%;
+    padding: 10px;
+    background: #FFDEAD; /* Warna #FFDEAD (navajo white) untuk tombol */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #FFE4C4; /* Warna hover menjadi lebih terang (#FFE4C4) */
+    color: black;
+}
+
+.toggle-btn {
+    background: none;
+    color: #FFDEAD; /* Warna #FFDEAD untuk tombol toggle */
+    border: 2px solid #FFDEAD;
+    margin-top: 10px;
+}
+
+.toggle-btn:hover {
+    background: #FFDEAD;
+    color: white;
+}
+
+.success-msg, .error-msg {
+    padding: 10px;
+    margin-bottom: 20px;
+    color: white;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.success-msg {
+    background-color: #4caf50; /* Hijau untuk pesan sukses */
+}
+
+.error-msg {
+    background-color: #f44336; /* Merah untuk pesan error */
+}
