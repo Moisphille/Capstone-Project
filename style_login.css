@@ -1,34 +1,51 @@
-* {
-    box-sizing: border-box;
-    padding: 0;
+/* Basic Styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
     margin: 0;
-    font-family: 'Arial', sans-serif;
+    padding: 0;
 }
 
-body {
-    background: linear-gradient(to right, #FFE4C4, #FFDEAD);
+.container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
 
-.container {
-    width: 100%;
-    max-width: 400px;
-    margin: auto;
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    flex-direction: column;
-    align-items: center;
-}
-
 .form-container {
-    background: #fff;
+    background-color: white;
     padding: 40px;
     border-radius: 8px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px;
+    transform: scale(0.98);
+    opacity: 0;
+    animation: fadeIn 0.8s forwards, slideUp 0.8s forwards;
+    animation-delay: 0.3s; /* Delay animasi masuk */
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    0% {
+        transform: translateY(50px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.form-container:hover {
+    transform: scale(1);
 }
 
 .form-box {
@@ -36,84 +53,215 @@ body {
 }
 
 h2 {
-    margin-bottom: 20px;
     text-align: center;
-    color: #8B4513; /* Optional: Berikan warna untuk judul */
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 28px;
+    letter-spacing: 1px;
+    animation: fadeInUp 0.8s forwards;
+    animation-delay: 0.4s;
 }
 
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Input Box Styling */
 .input-box {
+    margin-bottom: 20px;
     position: relative;
-    margin-bottom: 30px;
+    opacity: 0;
+    animation: fadeIn 0.8s forwards;
+    animation-delay: 0.5s; /* Delay untuk input-box */
 }
 
 .input-box input {
     width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #F5DEB3;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
     outline: none;
-    background: none;
-    border-radius: 4px;
-    transition: 0.3s;
+    transition: border-color 0.3s;
+    animation: typingEffect 0.5s ease-out forwards;
+}
+
+@keyframes typingEffect {
+    0% {
+        border-color: #ddd;
+    }
+    100% {
+        border-color: #28a745; /* Warna border saat aktif */
+    }
+}
+
+.input-box input:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 8px rgba(40, 167, 69, 0.2);
+}
+
+.input-box input:focus ~ label,
+.input-box input:not(:focus):valid ~ label {
+    top: -10px;
+    left: 10px;
+    font-size: 12px;
+    color: #28a745;
 }
 
 .input-box label {
     position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #999;
+    top: 12px;
+    left: 12px;
+    font-size: 14px;
+    color: #aaa;
+    pointer-events: none;
     transition: 0.3s;
 }
 
-.input-box input:focus + label,
-.input-box input:valid + label {
-    top: -10px;
-    color: #FFDEAD;
-    font-size: 12px;
+.input-box input {
+    animation: fadeIn 0.8s forwards;
+    animation-delay: 0.6s;
 }
 
+.input-box label {
+    animation: fadeInUp 0.8s forwards;
+    animation-delay: 0.7s;
+}
+
+/* Submit Button Styling */
 .btn {
     width: 100%;
-    padding: 10px;
-    background: #FFDEAD;
+    padding: 14px;
+    background-color: #28a745;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    transition: 0.3s;
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+    transition: all 0.3s ease-in-out;
+    opacity: 0;
+    animation: fadeIn 0.8s forwards;
+    animation-delay: 0.8s; /* Delay animasi tombol */
 }
 
 .btn:hover {
-    background: #FFE4C4;
-    color: black;
+    background-color: #218838;
+    box-shadow: 0 6px 15px rgba(40, 167, 69, 0.4);
+    transform: translateY(-2px);
 }
 
-.toggle-btn {
-    background: none;
-    color: #FFDEAD;
-    border: 2px solid #FFDEAD;
-    margin-top: 10px;
+.btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
 }
 
-.toggle-btn:hover {
-    background: #FFDEAD;
-    color: white;
+/* Developer Info Link */
+.developer-info-link {
+    text-align: center;
+    margin-top: 20px;
 }
 
-.success-msg, .error-msg {
-    padding: 10px;
-    margin-bottom: 20px;
-    color: white;
-    border-radius: 4px;
+.developer-info-link a {
+    font-size: 14px;
+    color: #28a745;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    animation: pulse 1.5s infinite;
+}
+
+.developer-info-link a:hover {
+    color: #218838;
+    animation: none; /* Menghentikan animasi ketika hover */
+}
+
+/* Animasi pulse untuk menarik perhatian */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+}
+
+/* Fade-in efek ketika teks muncul */
+@keyframes fadeInText {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.developer-info-link a {
+    animation: fadeInText 1s ease-out forwards, pulse 1.5s infinite;
+    animation-delay: 0.5s;
+}
+
+
+/* Developer Info Section */
+.developer-info {
+    background-color: #f9f9f9;
+    padding: 40px 0;
     text-align: center;
 }
 
-.success-msg {
-    background-color: #4caf50;
+.developer-info h3 {
+    font-size: 30px;
+    margin-bottom: 30px;
+    color: #333;
 }
 
-.error-msg {
-    background-color: #f44336;
+.developer {
+    display: inline-block;
+    width: 22%;
+    margin: 15px;
+    text-align: center;
+    padding: 10px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.developer:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.2);
+}
+
+.developer-photo {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 15px;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.developer:hover .developer-photo {
+    transform: scale(1.1);
+}
+
+.developer p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
 }

@@ -1,0 +1,227 @@
+/* Basic Body Setup */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    animation: fadeIn 1s ease-out;
+}
+
+/* Container Setup */
+.container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    animation: slideIn 1s ease-in-out;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 250px;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    position: fixed;
+    height: 100%;
+    transition: width 0.3s ease;  /* For smooth expansion */
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Sidebar Links */
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 15px 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 18px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #555;
+    transform: scale(1.05);  /* Slight scale effect */
+}
+
+/* Sidebar Hover Effect */
+.sidebar:hover {
+    width: 300px; /* Expand the sidebar on hover */
+}
+
+/* Main Content */
+.main-content {
+    margin-left: 250px;
+    padding: 20px;
+    width: 100%;
+    animation: fadeIn 1.5s ease-out;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Form Upload Gambar */
+.upload-form {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+    text-align: center;
+    animation: fadeInUp 1s ease-out;
+}
+
+.upload-form h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.upload-form input[type="file"] {
+    margin-bottom: 20px;
+}
+
+.upload-form button {
+    background-color: #3498db; /* Blue */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.upload-form button:hover {
+    background-color: #2980b9; /* Slightly darker blue */
+}
+
+/* Bagian Verifikasi Wajah */
+.verify-action {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    animation: fadeInUp 1s ease-out;
+}
+
+.verify-action h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.verify-action button {
+    background-color: #e74c3c; /* Red */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.verify-action button:hover {
+    background-color: #c0392b; /* Darker red */
+}
+
+/* Pesan Hasil */
+.verify-action p {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+/* Style untuk tombol kembali */
+.back-button {
+    background-color: #16a085; /* Green */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #1abc9c; /* Slightly lighter green */
+}
+
+/* Fade-In Effect for Page Load */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Slide-In Effect for Sidebar and Content */
+@keyframes slideIn {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* Upward Fade-In Animation */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design for Small Screens */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+        padding-top: 40px;
+    }
+
+    /* Smaller Sidebar */
+    .sidebar {
+        width: 60px;
+    }
+
+    /* Expanding Sidebar on Hover */
+    .sidebar:hover {
+        width: 200px;
+    }
+
+    .sidebar h2 {
+        display: none; /* Hide title on small screens */
+    }
+
+    .sidebar a {
+        font-size: 14px;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+}
