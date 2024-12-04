@@ -1,0 +1,174 @@
+/* Mengatur margin dan padding dasar untuk body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.5s ease;
+}
+
+/* Mengatur layout container */
+.container {
+    display: flex;
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    position: fixed;
+    height: 100%;
+    border-radius: 8px;
+    transition: width 0.3s ease;
+}
+
+/* Teks di sidebar */
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+
+/* Link di sidebar */
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 12px 20px;
+    margin: 10px 0;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #555;
+    transform: translateX(10px);
+}
+
+/* Konten utama */
+.main-content {
+    margin-left: 270px;  /* Menyesuaikan margin untuk memberi ruang pada sidebar */
+    padding: 20px;
+    width: calc(100% - 270px);
+    box-sizing: border-box;
+    transition: margin-left 0.3s ease;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+    font-weight: bold;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Container profile */
+.profile-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    animation: slideIn 0.8s ease-out;
+}
+
+/* Info profile */
+.profile-info {
+    margin-bottom: 25px;
+}
+
+.profile-info label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+/* Input form */
+.profile-info input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s, transform 0.3s;
+}
+
+.profile-info input:focus {
+    border-color: #6c5ce7;
+    outline: none;
+    transform: scale(1.05);
+}
+
+/* Upload gambar profil */
+.profile-info input[type="file"] {
+    padding: 8px;
+    border: none;
+    font-size: 14px;
+}
+
+/* Tombol aksi */
+.actions {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Tombol Save Changes */
+.actions button,
+.actions a {
+    padding: 12px 25px;
+    background-color: #6c5ce7;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.actions button:hover,
+.actions a:hover {
+    background-color: #4e3ad2;
+    transform: translateY(-5px);
+}
+
+/* Foto Profil */
+.profile-info img {
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    transition: transform 0.3s, filter 0.3s;
+    margin-bottom: 20px;
+}
+
+.profile-info img:hover {
+    transform: scale(1.1);
+    filter: brightness(1.2);
+}
+
+/* Animasi efek */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}

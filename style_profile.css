@@ -1,0 +1,164 @@
+/* Mengatur margin dan padding dasar untuk body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.5s ease;
+}
+
+/* Mengatur layout container */
+.container {
+    display: flex;
+    height: 100vh;
+    transition: transform 0.3s ease-in-out;
+    animation: fadeIn 1s ease-out; /* Menambahkan animasi fade-in saat konten dimuat */
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    position: fixed;
+    height: 100%;
+    box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.2);
+    animation: slideInLeft 0.5s ease-out; /* Animasi sidebar sliding in dari kiri */
+}
+
+/* Teks di sidebar */
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+
+/* Link di sidebar */
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 12px 20px;
+    margin: 10px 0;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #555;
+    transform: translateX(10px); /* Efek geser sedikit ke kanan saat di hover */
+}
+
+/* Konten utama */
+.main-content {
+    margin-left: 270px;  /* Menyesuaikan margin untuk memberi ruang pada sidebar */
+    padding: 20px;
+    width: calc(100% - 270px);
+    box-sizing: border-box;
+    animation: fadeIn 1s ease-out; /* Animasi fade-in untuk konten utama */
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+    font-weight: bold;
+    animation: fadeIn 1s ease-out; /* Animasi header */
+}
+
+/* Container profile */
+.profile-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    animation: slideInUp 0.8s ease-out; /* Animasi slide-in dari bawah */
+}
+
+/* Info profile */
+.profile-info {
+    width: 100%;
+    margin-bottom: 25px;
+    border-collapse: collapse;
+}
+
+.profile-info td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.profile-info td:first-child {
+    font-weight: bold;
+}
+
+/* Tombol aksi */
+.actions {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Tombol Update dan aksi */
+.actions a {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.actions a:hover {
+    background-color: #218838;
+    transform: translateY(-5px); /* Efek hover untuk tombol */
+}
+
+/* Animasi efek */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+        box-shadow: none;
+    }
+
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+}
