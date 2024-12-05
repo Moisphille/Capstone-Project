@@ -39,6 +39,25 @@ if (isset($_GET['delete']) && $_GET['delete'] == 'yes') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SAFAR - Profile</title>
     <link rel="stylesheet" href="style_profile.css">
+    <style>
+        /* Gaya tambahan untuk avatar dan gambar profil */
+        .profile-container img {
+            border-radius: 50%;
+        }
+
+        .profile-container .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -70,9 +89,11 @@ if (isset($_GET['delete']) && $_GET['delete'] == 'yes') {
                             <?php
                             // Cek apakah foto profil ada
                             if (!empty($user['profile_picture'])) {
-                                echo "<img src='uploads/" . $user['profile_picture'] . "' alt='Profile Picture' width='100' height='100'>";
+                                echo "<img src='uploads/" . $user['profile_picture'] . "' alt='Profile Picture' width='100' height='100' style='border-radius: 50%;'>";
                             } else {
-                                echo "<p>No profile picture uploaded.</p>";
+                                // Ambil inisial dari nama lengkap
+                                $initials = strtoupper($user['full_name'][0]);
+                                echo "<div class='avatar'>$initials</div>";
                             }
                             ?>
                         </td>

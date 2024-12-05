@@ -1,11 +1,13 @@
 <?php
 session_start();
 
-// Pastikan user sudah login dengan mengecek session email
+// Pastikan user sudah login
 if (!isset($_SESSION['email'])) {
     header("Location: login.php");
     exit();
 }
+
+include 'config.php'; // Koneksi ke database
 
 // Direktori untuk menyimpan file gambar yang di-upload
 $uploadDir = 'uploads/';
@@ -77,7 +79,7 @@ function startFaceRecognition($imagePath) {
             <div class="verify-action">
                 <h2>Start Face Recognition</h2>
                 <!-- Button untuk memulai verifikasi wajah menggunakan kamera -->
-                <form action="python-scripts\verify_face.py" method="POST">
+                <form action="verify_face.php" method="POST">
                     <input type="hidden" name="image_path" value="<?php echo $imagePath; ?>">
                     <button type="submit" name="start_recognition">Start Recognition</button>
                 </form>
