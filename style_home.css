@@ -1,181 +1,125 @@
-/* Basic Body Setup */
+/* Global Styles */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
     margin: 0;
-    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(120deg, #333, #555); /* Serasi dengan warna navbar */
+    color: #f9f9f9;
 }
 
-/* Container Setup */
-.container {
-    display: flex;
-    height: 100vh;
-    width: 100%;
-}
-
-/* Sidebar Styles */
-.sidebar {
-    width: 250px;
-    background-color: #333;
-    color: white;
-    padding: 20px;
-    position: fixed;
-    height: 100%;
-    transition: width 0.3s ease;  /* For smooth expansion */
-}
-
-.sidebar h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
-    font-weight: bold;
-}
-
-/* Sidebar Links */
-.sidebar a {
-    color: white;
-    text-decoration: none;
-    display: block;
-    padding: 15px 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    text-align: center;
-    font-size: 18px;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.sidebar a:hover {
-    background-color: #555;
-    transform: scale(1.05);  /* Slight scale effect */
-}
-
-/* Sidebar Hover Effect */
-.sidebar:hover {
-    width: 300px; /* Expand the sidebar on hover */
-}
-
-/* Main Content */
+/* Main Content Styles */
 .main-content {
-    margin-left: 250px;
+    max-width: 900px;
+    margin: 20px auto;
     padding: 20px;
-    width: 100%;
+    background: linear-gradient(145deg, #3c3c3c, #525252); /* Warna gelap netral */
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    color: #fff; /* Teks menjadi lebih kontras */
 }
 
-/* Header */
-.header {
-    text-align: center;
-    margin-bottom: 20px;
+/* Avatar Styles */
+.avatar-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
 }
 
-/* Calendar Container */
-.calendar-container {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #4caf50; /* Kontras dengan warna gelap */
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
 }
 
-/* Calendar Styling */
-.calendar {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: center;
-}
-
-.calendar th,
-.calendar td {
-    padding: 10px;
-    border: 1px solid #ddd;
-}
-
-.calendar th {
-    background-color: #f8f8f8;
-    color: #333;
-}
-
-.calendar td {
-    background-color: #ffffff;
-    color: #333;
-}
-
-.calendar td.empty {
-    background-color: #f9f9f9;
-}
-
-/* Event Styling */
-.event {
-    margin-top: 10px;
-    padding: 5px;
-    background-color: #8ab6d6; /* Soft Blue */
-    color: white;
-    border-radius: 5px;
-}
-
-.date {
+/* Attendance Section Styles */
+.attendance h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #fff;
     font-weight: bold;
+    text-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
 }
 
-/* Action Buttons Styling */
-.actions {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.actions a {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #a0b8c7; /* Light Grayish Blue */
+.attendance button {
+    background-color: #4caf50;
     color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
 }
 
-.actions a:hover {
-    background-color: #8fa4b0; /* Slightly darker blue for hover */
+.attendance button:hover {
+    background-color: #45a049;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.5);
 }
 
-/* Fade-In Effect for Page Load */
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+/* Calendar Section Styles */
+.calendar-container {
+    margin-top: 30px;
 }
 
-body {
-    animation: fadeIn 1s ease-out;
+.calendar-container h2 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    text-align: center;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
 }
 
-/* Responsive Design for Small Screens */
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-        align-items: center;
-        padding-top: 40px;
-    }
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    background: linear-gradient(145deg, #3c3c3c, #4a4a4a); /* Serasi dengan warna navbar */
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
 
-    /* Smaller Sidebar */
-    .sidebar {
-        width: 60px;
-    }
+.calendar .day {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    background: linear-gradient(145deg, #525252, #666); /* Netral namun elegan */
+    color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
 
-    /* Expanding Sidebar on Hover */
-    .sidebar:hover {
-        width: 200px;
-    }
+.calendar .day:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.5);
+}
 
-    .sidebar h2 {
-        display: none; /* Hide title on small screens */
-    }
+/* Kehadiran: Hadir */
+.calendar .day.present {
+    background: linear-gradient(145deg, #4caf50, #45a049); /* Warna hijau cerah */
+    color: white;
+    box-shadow: 0 4px 6px rgba(76, 175, 80, 0.5);
+}
 
-    .sidebar a {
-        font-size: 14px;
-    }
+/* Kehadiran: Absen */
+.calendar .day.absent {
+    background: linear-gradient(145deg, #f44336, #d32f2f); /* Merah yang kuat */
+    color: white;
+    box-shadow: 0 4px 6px rgba(244, 67, 54, 0.5);
+}
 
-    .main-content {
-        margin-left: 0;
-    }
+/* Kehadiran: Tidak Direkam */
+.calendar .day.not-recorded {
+    background: linear-gradient(145deg, #999, #bbb); /* Warna abu yang lembut */
+    color: #222;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
