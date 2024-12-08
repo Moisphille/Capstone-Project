@@ -46,6 +46,7 @@ if (isset($_POST['signup'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SAFAR - Signup</title>
     <link rel="stylesheet" href="style_signup.css">
+    <link rel="shortcut icon" href="safar-logo-fav.ico" type="image/x-icon">
 </head>
 <body>
     <div class="container">

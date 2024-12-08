@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-// Cek apakah session sudah dimulai
-if (!isset($_SESSION['email'])) {
+// Cek apakah session sudah dimulai dan user_id ada di sesi
+if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
@@ -32,7 +32,6 @@ if ($result) {
 }
 
 // Simulasikan hasil verifikasi wajah (Hadir atau Absen)
-// Gantilah dengan logika verifikasi wajah sebenarnya
 $status = "Hadir";  // Ganti dengan logika deteksi kehadiran berdasarkan wajah
 
 // Insert data ke tabel attendance jika belum ada data untuk hari ini
@@ -53,6 +52,7 @@ if (mysqli_num_rows($result_check) == 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SAFAR - Dashboard</title>
     <link rel="stylesheet" href="style_home.css">
+    <link rel="shortcut icon" href="safar-logo-fav.ico" type="image/x-icon">
     <style>
         /* Navbar Styles */
         .navbar {
