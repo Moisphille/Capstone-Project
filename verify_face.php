@@ -1,7 +1,9 @@
 <?php
 session_start();
 
-// Cek apakah sesi sudah dimulai dan user_id ada di sesi
+$process = null;
+
+// Cek apakah sesi user valid
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
@@ -11,40 +13,52 @@ include 'config.php'; // Koneksi ke database
 
 $user_id = $_SESSION['user_id'];
 
-// Fungsi untuk memeriksa apakah gambar wajah cocok dengan user
-function verify_face($image_data, $user_id) {
-    return true; // Simulasi verifikasi wajah
+// Fungsi untuk menjalankan skrip Python
+function start_python_script() {
+    global $process;
+    $command = "python python-scripts/final.py";
+    
+    shell_exec($command);
+
+    $descriptor = [
+        0 => ["pipe", "r"],
+        1 => ["pipe", "w"],
+        0 => ["pipe", "r"]
+    ];
+    $process  = proc_open($command, $descriptor, $pipes);
+
+    if(!is_resource($process)){
+        echo "machine learning tidak bekerja";
+    }
 }
 
-// Proses verifikasi wajah
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['start_recognition'])) {
-    if (isset($_POST['image_data'])) {
-        $image_data = $_POST['image_data']; // Data gambar dalam format base64
+// Fungsi untuk menghentikan skrip Python
+function stop_python_script() {
+    global $process;
 
-        $verification_successful = verify_face($image_data, $user_id);
-
-        if ($verification_successful) {
-            $date = date('Y-m-d');
-            $status = 'Hadir'; 
-
-            // Cek apakah data kehadiran untuk hari ini sudah ada
-            $query_check = "SELECT * FROM attendance WHERE user_id = '$user_id' AND date = '$date'";
-            $result_check = mysqli_query($conn, $query_check);
-
-            if (mysqli_num_rows($result_check) == 0) {
-                $query_insert = "INSERT INTO attendance (user_id, date, status) VALUES ('$user_id', '$date', '$status')";
-                if (mysqli_query($conn, $query_insert)) {
-                    echo "<p style='color: green;'>Kehadiran berhasil dicatat!</p>";
-                } else {
-                    echo "<p style='color: red;'>Terjadi kesalahan saat mencatat kehadiran: " . mysqli_error($conn) . "</p>";
-                }
-            } else {
-                echo "<p style='color: orange;'>Kehadiran sudah tercatat untuk hari ini.</p>";
-            }
-        } else {
-            echo "<p style='color: red;'>Verifikasi wajah gagal. Silakan coba lagi.</p>";
-        }
+    if (is_resource($process)){
+        proc_terminate($process);
+        proc_close($process);
+        echo "setop dulu bang";
     }
+    else{
+        echo "tidak ada proses kamera yang berjalan";
+    }
+    // if
+    // $signal_file = 'py';
+    // file_put_contents($signal_file, 'stop');
+}
+
+// Proses tombol "Start Absen"
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['start_absen'])) {
+    start_python_script();
+    echo "<p style='color: green;'>Skrip absensi telah dimulai!</p>";
+}
+
+// Proses tombol "Submit Absen"
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_absen'])) {
+    stop_python_script();
+    echo "<p style='color: green;'>Skrip absensi telah dihentikan!</p>";
 }
 ?>
 
@@ -69,56 +83,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['start_recognition'])) 
 
     <div class="container">
         <h2>Verifikasi Wajah</h2>
-        <p>Silakan verifikasi wajah Anda untuk melakukan absensi.</p>
+        <p>Silakan verifikasi wajah Anda untuk melakukan absensi. 
+            Kamera akan melakukan verifikasi selama 5 detik.</p>
 
-        <!-- Video Element untuk Menampilkan Kamera -->
-        <video id="video" width="640" height="480" autoplay></video>
-        <button id="start-button">Start Absen</button>
-
-        <!-- Canvas Element untuk Menyimpan Snapshot -->
-        <canvas id="canvas" style="display:none;"></canvas>
-
-        <form id="absen-form" action="verify_face.php" method="POST">
-            <input type="hidden" name="image_data" id="image-data">
-            <button type="submit" name="start_recognition" id="submit-btn" style="display:none;">Submit Absen</button>
+        <!-- Form untuk tombol absensi -->
+        <form method="POST" action="">
+            <!-- Tombol Mulai Absensi -->
+            <button type="submit" name="start_absen" class="btn btn-start">Start Absen</button>
+            
+            <!-- Tombol Submit Absensi -->
+            <button type="submit" name="submit_absen" class="btn btn-submit">Submit Absen</button>
         </form>
     </div>
-
-    <script>
-        const video = document.getElementById('video');
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        const startButton = document.getElementById('start-button');
-        const submitBtn = document.getElementById('submit-btn');
-        const imageDataInput = document.getElementById('image-data');
-
-        // Fungsi untuk mengakses kamera
-        function startCamera() {
-            navigator.mediaDevices.getUserMedia({ video: true })
-                .then(function(stream) {
-                    video.srcObject = stream;
-                })
-                .catch(function(error) {
-                    console.log('Error accessing camera: ', error);
-                });
-        }
-
-        // Fungsi untuk mengambil snapshot dari video
-        function takeSnapshot() {
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-            const dataURL = canvas.toDataURL('image/png');
-            imageDataInput.value = dataURL; // Menyimpan data gambar dalam base64
-            submitBtn.style.display = 'inline'; // Tampilkan tombol submit setelah mengambil gambar
-        }
-
-        // Event listener untuk memulai absensi
-        startButton.addEventListener('click', function() {
-            startCamera();
-            startButton.style.display = 'none'; // Sembunyikan tombol start setelah diklik
-            setTimeout(takeSnapshot, 2000); // Ambil snapshot setelah 2 detik
-        });
-    </script>
 </body>
 </html>
