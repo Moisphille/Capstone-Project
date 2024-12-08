@@ -1,9 +1,10 @@
 import cv2
 import os
 import numpy as np
+import sys
 from datetime import datetime
 
-def verify_face_with_camera(upload_dir='C:\Users\yayank\OneDrive\Dokumen\UT\semester 6\Casptone project\Safar\uploads', threshold=50):
+def verify_face_with_camera(upload_dir='C:/laragon/www/Capstone-Project-dev/uploads', threshold=50, signal_file='stop_signal.txt'):
     # Cek apakah folder uploads ada
     if not os.path.exists(upload_dir):
         print(f"Folder {upload_dir} tidak ditemukan.")
@@ -18,7 +19,7 @@ def verify_face_with_camera(upload_dir='C:\Users\yayank\OneDrive\Dokumen\UT\seme
         return
 
     # Buka kamera (ubah 0 menjadi 1 jika menggunakan kamera eksternal)
-    cap = cv2.VideoCapture(1)
+    cap = cv2.VideoCapture(0)
     if not cap.isOpened():
         print("Tidak dapat membuka kamera.")
         return
@@ -45,6 +46,7 @@ def verify_face_with_camera(upload_dir='C:\Users\yayank\OneDrive\Dokumen\UT\seme
 
     recognizer.train(images, np.array(labels))
     
+    start_time = datetime.now()
     while True:
         # Baca frame dari kamera
         ret, frame = cap.read()
@@ -76,15 +78,20 @@ def verify_face_with_camera(upload_dir='C:\Users\yayank\OneDrive\Dokumen\UT\seme
         waktu = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         cv2.putText(frame, waktu, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
             
-        cv2.imshow("Verifikasi Wajah", frame)
+        cv2.imshow("Verifikasi", frame)
 
         # Tekan 'q' buat keluar dari frame
         if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+        # Hentikan kamera setelah 5 detik
+        if (datetime.now() - start_time).seconds >= 5:
+            print("Kamera dimatikan setelah 5 detik.")
             break
 
     # Tutup kamera dan jendela
     cap.release()
     cv2.destroyAllWindows()
 
-# Contoh penggunaan dengan folder uploads
-verify_face_with_camera()
+# Jalankan fungsi
+if __name__ == "__main__":
+    verify_face_with_camera()
