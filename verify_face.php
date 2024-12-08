@@ -1,42 +1,51 @@
 <?php
 session_start();
 
-// Pastikan user sudah login
-if (!isset($_SESSION['email'])) {
+// Cek apakah sesi sudah dimulai dan user_id ada di sesi
+if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
 
 include 'config.php'; // Koneksi ke database
 
-// Direktori untuk menyimpan file gambar yang di-upload
-$uploadDir = 'uploads/';
+$user_id = $_SESSION['user_id'];
 
-// Variabel untuk menampilkan pesan error atau sukses
-$message = '';
+// Fungsi untuk memeriksa apakah gambar wajah cocok dengan user
+function verify_face($image_data, $user_id) {
+    return true; // Simulasi verifikasi wajah
+}
 
-// Proses upload gambar
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['reference_image'])) {
-    $imageName = $_FILES['reference_image']['name'];
-    $imageTmpName = $_FILES['reference_image']['tmp_name'];
-    $imagePath = $uploadDir . basename($imageName);
+// Proses verifikasi wajah
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['start_recognition'])) {
+    if (isset($_POST['image_data'])) {
+        $image_data = $_POST['image_data']; // Data gambar dalam format base64
 
-    // Periksa apakah gambar berhasil di-upload
-    if (move_uploaded_file($imageTmpName, $imagePath)) {
-        $message = "Gambar berhasil di-upload!";
-    } else {
-        $message = "Maaf, terjadi kesalahan saat mengupload file.";
+        $verification_successful = verify_face($image_data, $user_id);
+
+        if ($verification_successful) {
+            $date = date('Y-m-d');
+            $status = 'Hadir'; 
+
+            // Cek apakah data kehadiran untuk hari ini sudah ada
+            $query_check = "SELECT * FROM attendance WHERE user_id = '$user_id' AND date = '$date'";
+            $result_check = mysqli_query($conn, $query_check);
+
+            if (mysqli_num_rows($result_check) == 0) {
+                $query_insert = "INSERT INTO attendance (user_id, date, status) VALUES ('$user_id', '$date', '$status')";
+                if (mysqli_query($conn, $query_insert)) {
+                    echo "<p style='color: green;'>Kehadiran berhasil dicatat!</p>";
+                } else {
+                    echo "<p style='color: red;'>Terjadi kesalahan saat mencatat kehadiran: " . mysqli_error($conn) . "</p>";
+                }
+            } else {
+                echo "<p style='color: orange;'>Kehadiran sudah tercatat untuk hari ini.</p>";
+            }
+        } else {
+            echo "<p style='color: red;'>Verifikasi wajah gagal. Silakan coba lagi.</p>";
+        }
     }
 }
-
-// Fungsi untuk memulai verifikasi wajah menggunakan Python
-function startFaceRecognition($imagePath) {
-    $pythonScript = "python verify_face.py " . escapeshellarg($imagePath);
-    // Menjalankan script Python untuk verifikasi wajah
-    $output = shell_exec($pythonScript);
-    return $output;
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -44,57 +53,72 @@ function startFaceRecognition($imagePath) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verify Face</title>
+    <title>Verifikasi Wajah - SAFAR</title>
     <link rel="stylesheet" href="style_verify.css">
+    <link rel="shortcut icon" href="safar-logo-fav.ico" type="image/x-icon">
 </head>
 <body>
-<div class="container">
-    <div class="sidebar">
-        <h2>SAFAR</h2>
-        <a href="home.php">Dashboard</a>
-        <a href="profile.php">Profile</a>
-        <a href="setting.php">Settings</a>
-        <a href="logout.php">Logout</a>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">SAFAR</div>
+        <ul class="navbar-links">
+            <li><a href="home.php">Dashboard</a></li>
+            <li><a href="logout.php">Logout</a></li>
+        </ul>
     </div>
-    <div class="main-content">
-        <div class="header">
-            <h1>Welcome, <?php echo $_SESSION['full_name']; ?>!</h1>
-            <p>Email: <?php echo $_SESSION['email']; ?></p>
-        </div>
 
-        <!-- Form Upload Image -->
-        <div class="upload-form">
-            <h2>Upload Reference Image</h2>
-            <?php if ($message != ''): ?>
-                <p><?php echo $message; ?></p>
-            <?php endif; ?>
-            <form action="verify_face.php" method="POST" enctype="multipart/form-data">
-                <input type="file" name="reference_image" required>
-                <button type="submit">Upload</button>
-            </form>
-        </div>
+    <div class="container">
+        <h2>Verifikasi Wajah</h2>
+        <p>Silakan verifikasi wajah Anda untuk melakukan absensi.</p>
 
-        <!-- Verifikasi Wajah -->
-        <?php if (!empty($imagePath)): ?>
-            <div class="verify-action">
-                <h2>Start Face Recognition</h2>
-                <!-- Button untuk memulai verifikasi wajah menggunakan kamera -->
-                <form action="verify_face.php" method="POST">
-                    <input type="hidden" name="image_path" value="<?php echo $imagePath; ?>">
-                    <button type="submit" name="start_recognition">Start Recognition</button>
-                </form>
+        <!-- Video Element untuk Menampilkan Kamera -->
+        <video id="video" width="640" height="480" autoplay></video>
+        <button id="start-button">Start Absen</button>
 
-                <?php
-                // Jika tombol Start Recognition ditekan, jalankan proses verifikasi wajah
-                if (isset($_POST['start_recognition'])) {
-                    $imagePath = $_POST['image_path'];
-                    $result = startFaceRecognition($imagePath); // Memulai verifikasi wajah menggunakan Python
-                    echo "<p>Hasil Verifikasi: $result</p>";
-                }
-                ?>
-            </div>
-        <?php endif; ?>
+        <!-- Canvas Element untuk Menyimpan Snapshot -->
+        <canvas id="canvas" style="display:none;"></canvas>
+
+        <form id="absen-form" action="verify_face.php" method="POST">
+            <input type="hidden" name="image_data" id="image-data">
+            <button type="submit" name="start_recognition" id="submit-btn" style="display:none;">Submit Absen</button>
+        </form>
     </div>
-</div>
+
+    <script>
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const startButton = document.getElementById('start-button');
+        const submitBtn = document.getElementById('submit-btn');
+        const imageDataInput = document.getElementById('image-data');
+
+        // Fungsi untuk mengakses kamera
+        function startCamera() {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function(stream) {
+                    video.srcObject = stream;
+                })
+                .catch(function(error) {
+                    console.log('Error accessing camera: ', error);
+                });
+        }
+
+        // Fungsi untuk mengambil snapshot dari video
+        function takeSnapshot() {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const dataURL = canvas.toDataURL('image/png');
+            imageDataInput.value = dataURL; // Menyimpan data gambar dalam base64
+            submitBtn.style.display = 'inline'; // Tampilkan tombol submit setelah mengambil gambar
+        }
+
+        // Event listener untuk memulai absensi
+        startButton.addEventListener('click', function() {
+            startCamera();
+            startButton.style.display = 'none'; // Sembunyikan tombol start setelah diklik
+            setTimeout(takeSnapshot, 2000); // Ambil snapshot setelah 2 detik
+        });
+    </script>
 </body>
 </html>

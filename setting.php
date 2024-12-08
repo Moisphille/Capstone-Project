@@ -48,6 +48,7 @@ $user = mysqli_fetch_assoc($result);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings</title>
     <link rel="stylesheet" href="style_setting.css">
+    <link rel="shortcut icon" href="safar-logo-fav.ico" type="image/x-icon">
 </head>
 <body>
     <div class="container">

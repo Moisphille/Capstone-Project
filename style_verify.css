@@ -1,166 +1,127 @@
 /* Basic Body Setup */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
+    color: #333;
     animation: fadeIn 1s ease-out;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: #333;
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.navbar .navbar-links {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar .navbar-links li {
+    margin-left: 20px;
+}
+
+.navbar .navbar-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    padding: 8px 16px;
+    border-radius: 5px;
+}
+
+.navbar .navbar-links a:hover {
+    background-color: #3498db;
+    color: white;
 }
 
 /* Container Setup */
 .container {
+    margin-top: 80px; /* Adjust to make room for the navbar */
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 40px;
+    text-align: center;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Main Header */
+h2 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+p {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* Button Styles */
+button {
+    background-color: #3498db;
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #2980b9;
+    transform: scale(1.05);
+}
+
+/* Video Element */
+video {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+/* Canvas Hidden for Snapshot */
+canvas {
+    display: none;
+}
+
+/* Form and Hidden Submit Button */
+#absen-form {
     display: flex;
-    height: 100vh;
-    width: 100%;
-    animation: slideIn 1s ease-in-out;
-}
-
-/* Sidebar Styles */
-.sidebar {
-    width: 250px;
-    background-color: #333;
-    color: white;
-    padding: 20px;
-    position: fixed;
-    height: 100%;
-    transition: width 0.3s ease;  /* For smooth expansion */
-    animation: fadeIn 1.5s ease-in-out;
-}
-
-.sidebar h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
-    font-weight: bold;
-}
-
-/* Sidebar Links */
-.sidebar a {
-    color: white;
-    text-decoration: none;
-    display: block;
-    padding: 15px 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    text-align: center;
-    font-size: 18px;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.sidebar a:hover {
-    background-color: #555;
-    transform: scale(1.05);  /* Slight scale effect */
-}
-
-/* Sidebar Hover Effect */
-.sidebar:hover {
-    width: 300px; /* Expand the sidebar on hover */
-}
-
-/* Main Content */
-.main-content {
-    margin-left: 250px;
-    padding: 20px;
-    width: 100%;
-    animation: fadeIn 1.5s ease-out;
-}
-
-/* Header */
-.header {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-/* Form Upload Gambar */
-.upload-form {
-    background-color: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 40px;
-    text-align: center;
-    animation: fadeInUp 1s ease-out;
-}
-
-.upload-form h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-
-.upload-form input[type="file"] {
-    margin-bottom: 20px;
-}
-
-.upload-form button {
-    background-color: #3498db; /* Blue */
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-}
-
-.upload-form button:hover {
-    background-color: #2980b9; /* Slightly darker blue */
-}
-
-/* Bagian Verifikasi Wajah */
-.verify-action {
-    background-color: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    animation: fadeInUp 1s ease-out;
-}
-
-.verify-action h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-
-.verify-action button {
-    background-color: #e74c3c; /* Red */
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-}
-
-.verify-action button:hover {
-    background-color: #c0392b; /* Darker red */
-}
-
-/* Pesan Hasil */
-.verify-action p {
+    flex-direction: column;
+    align-items: center;
     margin-top: 20px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #2c3e50;
 }
 
-/* Style untuk tombol kembali */
-.back-button {
-    background-color: #16a085; /* Green */
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    text-decoration: none;
-    display: inline-block;
-    margin-top: 20px;
-    transition: background-color 0.3s ease;
-}
-
-.back-button:hover {
-    background-color: #1abc9c; /* Slightly lighter green */
+#submit-btn {
+    display: none; /* Hidden until snapshot is taken */
 }
 
 /* Fade-In Effect for Page Load */
@@ -173,55 +134,50 @@ body {
     }
 }
 
-/* Slide-In Effect for Sidebar and Content */
-@keyframes slideIn {
-    0% {
-        transform: translateX(-100%);
-    }
-    100% {
-        transform: translateX(0);
-    }
-}
-
-/* Upward Fade-In Animation */
-@keyframes fadeInUp {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
 /* Responsive Design for Small Screens */
 @media (max-width: 768px) {
+    .navbar .navbar-links {
+        display: none;
+    }
+
+    .navbar .logo {
+        font-size: 20px;
+    }
+
     .container {
+        padding: 20px;
+        margin-top: 60px;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    /* Mobile View Navbar Links */
+    .navbar .navbar-links.mobile {
+        display: flex;
         flex-direction: column;
-        align-items: center;
-        padding-top: 40px;
+        position: absolute;
+        background-color: #333;
+        width: 100%;
+        top: 60px;
+        left: 0;
+        padding: 10px 0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
-    /* Smaller Sidebar */
-    .sidebar {
-        width: 60px;
+    .navbar .navbar-links.mobile li {
+        margin: 10px 0;
     }
 
-    /* Expanding Sidebar on Hover */
-    .sidebar:hover {
-        width: 200px;
+    .navbar .navbar-links.mobile a {
+        padding: 10px;
     }
 
-    .sidebar h2 {
-        display: none; /* Hide title on small screens */
-    }
-
-    .sidebar a {
-        font-size: 14px;
-    }
-
-    .main-content {
-        margin-left: 0;
+    /* Mobile Navbar Toggle */
+    .navbar .menu-icon {
+        display: block;
+        cursor: pointer;
+        font-size: 24px;
     }
 }

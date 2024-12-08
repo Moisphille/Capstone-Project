@@ -1,5 +1,5 @@
 <?php
-// Memastikan session hanya dimulai sekali
+// Memulai sesi jika belum dimulai
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
@@ -61,6 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SAFAR - Login</title>
     <link rel="stylesheet" href="style_login.css">
+    <link rel="shortcut icon" href="safar-logo-fav.ico" type="image/x-icon">
 </head>
 
 <body>
@@ -103,26 +104,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <p class="role">Machine Learning Developer</p>
             <p>Halo gaes nama gua AHMAD SYARIEF ANNUR, di panggil syarief
                 saya berasal dari semarang dan sekarang tinggal di pangkalanbun kalimantan tengah
-                saya sedang menempuh pendidikan di Universitas Terbuka dengan Program studi System informasi
-                saya sendiri type orang yang suka mencoba hal-hal yang baru, kalau ada sumur di ladang boleh
+                saya sedang menempuh pendidikan di Universitas Terbuka dengan Program Studi Sistem Informasi
+                saya sendiri type orang yang suka mencoba hal-hal yang baru.</p>
+            <p>kalau ada sumur di ladang boleh
                 kita menumpang mandi, kalau nemu error di codingan, boleh lah sama-sama kita cari.</p>
-            <p>jika anda tidak merubah rutinitas anda, anda akan mengulangi nya seumur hidup anda dan pertanyaan
+            <p>Jika anda tidak merubah rutinitas anda, anda akan mengulangi nya seumur hidup anda dan pertanyaan
                 melahirkan ilmu pengetahuan
-                dan bila tidak adanya ilmu manusia akan seperti binatang</p>
+                dan bila tidak adanya ilmu, manusia akan seperti binatang.</p>
         </div>
 
         <div class="developer">
             <img src="aya.jpg" alt="Developer 2 Photo" class="developer-photo">
             <p><strong>Sri Mawaddah Warahmah N</strong></p>
             <p class="role">Full-stack Developer</p>
-            <p>Hi Perkenalkan, aku Aya dari Prodi Sistem Informasi, Universitas Terbuka.
-                Saat ini aku sedang mengerjakan project bernama Safar, yang dimana saya adalah koordinator selaku
-                penanggung jawab untuk project ini, safar sendiri sebuah sistem yang akan membantu kita semua
+            <p>Hi Perkenalkan, Saya Aya dari Prodi Sistem Informasi, Universitas Terbuka.
+                Saat ini saya sedang mengerjakan project bernama Safar, yang dimana saya adalah full stack developer dan
+                koordinator selaku penanggung jawab dalam project ini. Safar sendiri sebuah sistem yang akan membantu
+                kita semua
                 menjadi lebih produktif, terutama dalam pengelolaan data kehadiran.
-                Semoga perjalanan ini memberikan manfaat besar, tidak hanya untukku, tapi juga untuk kalian semua yang
+                Semoga perjalanan ini memberikan manfaat besar, tidak hanya untuk kami, tapi juga untuk kalian semua
+                yang
                 mungkin akan menggunakannya nanti. 😊</p>
             <p>Ke pasar membeli durian,
-                Durian manis dibelah dua.
+                durian manis dibelah dua.
                 Project Safar jadi andalan,
                 Semoga sukses untuk kita semua!</p>
             <p>Kami tidak bekerja sendirian. Project Safar adalah perjalanan tim yang dipenuhi dukungan, kolaborasi, dan

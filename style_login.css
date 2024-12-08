@@ -10,12 +10,12 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 90vh;
 }
 
 .form-container {
     background-color: white;
-    padding: 40px;
+    padding: 50px;
     border-radius: 8px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     width: 100%;
@@ -83,7 +83,7 @@ h2 {
 }
 
 .input-box input {
-    width: 100%;
+    width: 94%;
     padding: 12px;
     border: 2px solid #ddd;
     border-radius: 5px;

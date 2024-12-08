@@ -39,6 +39,7 @@ if (isset($_GET['delete']) && $_GET['delete'] == 'yes') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SAFAR - Profile</title>
     <link rel="stylesheet" href="style_profile.css">
+    <link rel="shortcut icon" href="safar-logo-fav.ico" type="image/x-icon">
     <style>
         /* Gaya tambahan untuk avatar dan gambar profil */
         .profile-container img {
